@@ -42,8 +42,7 @@ def norm(A, B):
     Returns:
       s - the L2 norm of A+B.
     """
-    # Your code here
-    raise NotImplementedError
+    return np.linalg.norm(A + B)
 
 
 def neural_network(inputs, weights):
@@ -79,7 +78,8 @@ def vector_function(x, y):
 
 def main():
     print(randomization(5))
-    print(operations(3,2))
+    print(operations(3, 2))
+    print(norm(randomization(5), randomization(5)))
 
 
 if __name__ == "__main__":
