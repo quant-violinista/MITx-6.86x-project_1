@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def randomization(n):
     """
     Arg:
@@ -7,8 +8,9 @@ def randomization(n):
     Returns:
       A - a randomly-generated nx1 Numpy array.
     """
-    #Your code here
-    raise NotImplementedError
+    A = np.random.random([n, 1])
+    return A
+
 
 def operations(h, w):
     """
@@ -23,7 +25,7 @@ def operations(h, w):
       B - a randomly-generated h x w Numpy array.
       s - the sum of A and B.
     """
-    #Your code here
+    # Your code here
     raise NotImplementedError
 
 
@@ -38,7 +40,7 @@ def norm(A, B):
     Returns:
       s - the L2 norm of A+B.
     """
-    #Your code here
+    # Your code here
     raise NotImplementedError
 
 
@@ -53,20 +55,27 @@ def neural_network(inputs, weights):
      Returns (in this order):
        out - a 1 x 1 NumPy array, representing the output of the neural network
     """
-    #Your code here
+    # Your code here
     raise NotImplementedError
+
 
 def scalar_function(x, y):
     """
     Returns the f(x,y) defined in the problem statement.
     """
-    #Your code here
+    # Your code here
     raise NotImplementedError
+
 
 def vector_function(x, y):
     """
     Make sure vector_function can deal with vector input x,y 
     """
-    #Your code here
+    # Your code here
     raise NotImplementedError
 
+def main():
+    print(randomization(5))  # Should be (0 + 0) + (0 + 1) + (0 + 2) = 3
+
+if __name__ == "__main__":
+    main()
