@@ -9,6 +9,7 @@ def randomization(n):
       A - a randomly-generated nx1 Numpy array.
     """
     A = np.random.random([n, 1])
+    print(len(A))
     return A
 
 
@@ -25,8 +26,9 @@ def operations(h, w):
       B - a randomly-generated h x w Numpy array.
       s - the sum of A and B.
     """
-    # Your code here
-    raise NotImplementedError
+    A = np.random.random([h, w])
+    B = np.random.random([h, w])
+    return A, B, A + B
 
 
 def norm(A, B):
@@ -74,8 +76,11 @@ def vector_function(x, y):
     # Your code here
     raise NotImplementedError
 
+
 def main():
-    print(randomization(5))  # Should be (0 + 0) + (0 + 1) + (0 + 2) = 3
+    print(randomization(5))
+    print(operations(3,2))
+
 
 if __name__ == "__main__":
     main()
