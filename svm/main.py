@@ -56,9 +56,7 @@ def neural_network(inputs, weights):
      Returns (in this order):
        out - a 1 x 1 NumPy array, representing the output of the neural network
     """
-    # Your code here
-    raise NotImplementedError
-
+    return np.tanh(np.dot(np.transpose(weights), inputs))
 
 def scalar_function(x, y):
     """
@@ -80,6 +78,7 @@ def main():
     print(randomization(5))
     print(operations(3, 2))
     print(norm(randomization(5), randomization(5)))
+    print(neural_network(randomization(2), randomization(2)))
 
 
 if __name__ == "__main__":
