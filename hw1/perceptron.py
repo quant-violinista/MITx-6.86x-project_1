@@ -6,6 +6,9 @@ class Perceptron:
         """
         :param x: numpy array containing feature vectors
         :param y: numpy array containing labels
+        :param iterations: number of iterations through points
+        :param start_idx: index of point to start iteration
+        :param debug: option to print output
         """
         self.num_points = x.shape[0]
         assert self.num_points == y.size
@@ -30,7 +33,7 @@ class Perceptron:
                     continue
                 if np.sign(self.x[j].dot(self.theta)) != self.y[j]:
                     self.theta += self.y[j] * self.x[j]
-                if self.debug:
-                    print(self.theta)
+                    if self.debug:
+                        print(self.theta)
                 if self.__misclassified__():
                     return
