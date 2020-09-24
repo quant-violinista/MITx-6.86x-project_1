@@ -17,11 +17,12 @@ class Perceptron:
         self.y = y
         self.iterations = iterations
         self.theta = np.zeros(x.shape[1])
+        self.theta0 = 0.
         self.debug = debug
         self.start_idx = start_idx
 
-    def __misclassified__(self):
-        if np.all(np.sign(self.x.dot(self.theta)) == self.y):
+    def __no_mistakes__(self):
+        if np.all(np.sign(self.x.dot(self.theta) + self.theta0) == self.y):
             return True
         else:
             return False
@@ -31,9 +32,11 @@ class Perceptron:
             for j in range(self.num_points):
                 if (i == 0) & (j < self.start_idx):
                     continue
-                if np.sign(self.x[j].dot(self.theta)) != self.y[j]:
+                if np.sign(self.x[j].dot(self.theta) + self.theta0) != self.y[j]:
                     self.theta += self.y[j] * self.x[j]
+                    self.theta0 += self.y[j]
                     if self.debug:
                         print(self.theta)
-                if self.__misclassified__():
+                        print(self.theta0)
+                if self.__no_mistakes__():
                     return
