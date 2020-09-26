@@ -2,7 +2,7 @@ import numpy as np
 
 
 class Perceptron:
-    def __init__(self, x, y, iterations, start_idx=0, debug=False):
+    def __init__(self, x, y, iterations, start_idx=0, offset=True, debug=False):
         """
         :param x: numpy array containing feature vectors
         :param y: numpy array containing labels
@@ -18,6 +18,7 @@ class Perceptron:
         self.iterations = iterations
         self.theta = np.zeros(x.shape[1])
         self.theta0 = 0.
+        self.offset = offset
         self.debug = debug
         self.start_idx = start_idx
 
@@ -34,7 +35,8 @@ class Perceptron:
                     continue
                 if np.sign(self.x[j].dot(self.theta) + self.theta0) != self.y[j]:
                     self.theta += self.y[j] * self.x[j]
-                    self.theta0 += self.y[j]
+                    if self.offset:
+                        self.theta0 += self.y[j]
                     if self.debug:
                         print(self.theta)
                         print(self.theta0)
