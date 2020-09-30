@@ -195,14 +195,17 @@ def pegasos_single_step_update(
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
-    # Your code here
-    raise NotImplementedError
+    abs_tol = 1e-16
+    if (current_theta.T.dot(feature_vector) + current_theta_0) * label - 1. < abs_tol:
+        current_theta = (1 - eta * L) * current_theta + eta * label * feature_vector
+        current_theta_0 += eta * label
+
+    else:
+        current_theta = (1 - eta * L) * current_theta
+
+    return current_theta, current_theta_0
 
 
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
 def pegasos(feature_matrix, labels, T, L):
     """
     Runs the Pegasos algorithm on a given set of data. Runs T
@@ -378,4 +381,3 @@ def accuracy(preds, targets):
     returns the percentage and number of correct predictions.
     """
     return (preds == targets).mean()
-# pragma: coderesponse end
