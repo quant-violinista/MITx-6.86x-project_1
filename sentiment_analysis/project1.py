@@ -53,14 +53,11 @@ def hinge_loss_full(feature_matrix, labels, theta, theta_0):
     given dataset and parameters. This number should be the average hinge
     loss across all of the points in the feature matrix.
     """
-    # Your code here
-    raise NotImplementedError
+    z_vector = labels * (feature_matrix.dot(theta) + theta_0)
+    hinge_loss_vector = np.maximum(0, 1 - z_vector)
+    return np.average(hinge_loss_vector)
 
 
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
 def perceptron_single_step_update(
         feature_vector,
         label,
