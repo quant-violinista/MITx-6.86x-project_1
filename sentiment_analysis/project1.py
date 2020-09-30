@@ -114,10 +114,15 @@ def perceptron(feature_matrix, labels, T):
     """
     theta = np.zeros((feature_matrix.shape[1],))
     theta_0 = 0
+    error = 100000
     for t in range(T):
         for i in get_order(feature_matrix.shape[0]):
-            theta, theta_0 = perceptron_single_step_update(feature_matrix[i], labels[i], theta, theta_0)
+            theta_new, theta_0_new = perceptron_single_step_update(feature_matrix[i], labels[i], theta, theta_0)
+            error = max(abs(np.linalg.norm(theta - theta_new)), abs(theta_0_new - theta_0))
+            theta = theta_new
+            theta_0 = theta_0_new
 
+    print(f'Perceptron error : {error}')
     return theta, theta_0
 
 
@@ -155,17 +160,24 @@ def average_perceptron(feature_matrix, labels, T):
     theta_0 = 0.
     theta_0_avg = 0.
     updates = 0
+    error = 100000
+
     for t in range(T):
         for i in get_order(feature_matrix.shape[0]):
             theta, theta_0 = perceptron_single_step_update(feature_matrix[i], labels[i], theta, theta_0)
             theta_avg += theta
             theta_0_avg += theta_0
             updates += 1
+            if updates > 1:
+                error = max(abs(np.linalg.norm(theta_avg / updates
+                                               - (theta_avg - theta) / (updates - 1))),
+                            abs(theta_0_avg / updates - (theta_0_avg - theta_0) / (updates - 1)))
 
     if updates != 0:
         theta_avg /= updates
         theta_0_avg /= updates
 
+    print(f'Average perceptron error : {error}')
     return theta_avg, theta_0_avg
 
 
@@ -238,12 +250,18 @@ def pegasos(feature_matrix, labels, T, L):
     theta = np.zeros((feature_matrix.shape[1],))
     theta_0 = 0
     updates = 0
+    error = 100000
+
     for t in range(T):
         for i in get_order(feature_matrix.shape[0]):
             updates += 1
-            eta = 1/np.sqrt(updates)
-            theta, theta_0 = pegasos_single_step_update(feature_matrix[i], labels[i], L, eta, theta, theta_0)
+            eta = 1 / np.sqrt(updates)
+            theta_new, theta_0_new = pegasos_single_step_update(feature_matrix[i], labels[i], L, eta, theta, theta_0)
+            error = max(abs(np.linalg.norm(theta - theta_new)), abs(theta_0_new - theta_0))
+            theta = theta_new
+            theta_0 = theta_0_new
 
+    print(f'Pegasos error : {error}')
     return theta, theta_0
 
 
