@@ -80,14 +80,13 @@ def perceptron_single_step_update(
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
-    # Your code here
-    raise NotImplementedError
+    abs_tol = 1e-9
+    if (current_theta.T.dot(feature_vector) + current_theta_0) * label < abs_tol:
+        current_theta += label * feature_vector
+        current_theta_0 += label
+    return current_theta, current_theta_0
 
 
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
 def perceptron(feature_matrix, labels, T):
     """
     Runs the full perceptron algorithm on a given set of data. Runs T
