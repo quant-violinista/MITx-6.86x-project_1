@@ -112,18 +112,15 @@ def perceptron(feature_matrix, labels, T):
     theta_0, the offset classification parameter, after T iterations through
     the feature matrix.
     """
-    # Your code here
+    theta = np.zeros((feature_matrix.shape[1],))
+    theta_0 = 0
     for t in range(T):
         for i in get_order(feature_matrix.shape[0]):
-            # Your code here
-            pass
-    raise NotImplementedError
+            theta, theta_0 = perceptron_single_step_update(feature_matrix[i], labels[i], theta, theta_0)
+
+    return theta, theta_0
 
 
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
 def average_perceptron(feature_matrix, labels, T):
     """
     Runs the average perceptron algorithm on a given set of data. Runs T
