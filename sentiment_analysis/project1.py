@@ -306,7 +306,7 @@ def classifier_accuracy(
             (feature matrix, labels, **kwargs) and returns (theta, theta_0)
         train_feature_matrix - A numpy matrix describing the training
             data. Each row represents a single data point.
-        val_feature_matrix - A numpy matrix describing the training
+        val_feature_matrix - A numpy matrix describing the validation
             data. Each row represents a single data point.
         train_labels - A numpy array where the kth element of the array
             is the correct classification of the kth row of the training
@@ -321,14 +321,11 @@ def classifier_accuracy(
     trained classifier on the training data and the second element is the
     accuracy of the trained classifier on the validation data.
     """
-    # Your code here
-    raise NotImplementedError
+    theta, theta_0 = classifier(train_feature_matrix, train_labels, **kwargs)
+    train_accuracy = accuracy(classify(train_feature_matrix, theta, theta_0), train_labels)
+    val_accuracy = accuracy(classify(val_feature_matrix, theta, theta_0), val_labels)
+    return train_accuracy, val_accuracy
 
-
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
 def extract_words(input_string):
     """
     Helper function for bag_of_words()
