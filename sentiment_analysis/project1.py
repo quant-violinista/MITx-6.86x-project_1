@@ -2,6 +2,7 @@ from string import punctuation, digits
 import numpy as np
 import random
 
+ABS_TOL = 1e-16
 
 def get_order(n_samples):
     try:
@@ -80,8 +81,7 @@ def perceptron_single_step_update(
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
-    abs_tol = 1e-9
-    if (current_theta.T.dot(feature_vector) + current_theta_0) * label < abs_tol:
+    if (current_theta.T.dot(feature_vector) + current_theta_0) * label < ABS_TOL:
         current_theta += label * feature_vector
         current_theta_0 += label
     return current_theta, current_theta_0
@@ -207,8 +207,7 @@ def pegasos_single_step_update(
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
-    abs_tol = 1e-16
-    if (current_theta.T.dot(feature_vector) + current_theta_0) * label - 1. < abs_tol:
+    if (current_theta.T.dot(feature_vector) + current_theta_0) * label - 1. < ABS_TOL:
         current_theta = (1 - eta * L) * current_theta + eta * label * feature_vector
         current_theta_0 += eta * label
 
