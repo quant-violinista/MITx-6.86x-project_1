@@ -131,4 +131,6 @@ class TestAlgoComparison(unittest.TestCase):
         sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
         print("Most Explanatory Word Features")
         print(sorted_word_features[:10])
+        print("Least Explanatory Word Features")
+        print(sorted_word_features[-10:])
         return
