@@ -326,6 +326,7 @@ def classifier_accuracy(
     val_accuracy = accuracy(classify(val_feature_matrix, theta, theta_0), val_labels)
     return train_accuracy, val_accuracy
 
+
 def extract_words(input_string):
     """
     Helper function for bag_of_words()
@@ -350,12 +351,14 @@ def bag_of_words(texts):
 
     Feel free to change this code as guided by Problem 9
     """
-    # Your code here
+    with open("stopwords.txt", "r") as f:
+        stopwords = f.readlines()
+    stopwords = [word.replace('\n', '') for word in stopwords]
     dictionary = {}  # maps word to unique index
     for text in texts:
         word_list = extract_words(text)
         for word in word_list:
-            if word not in dictionary:
+            if (word not in dictionary) & (word not in stopwords):
                 dictionary[word] = len(dictionary)
     return dictionary
 
