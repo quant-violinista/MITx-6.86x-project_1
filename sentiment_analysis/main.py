@@ -45,6 +45,7 @@ class TestAlgoComparison(unittest.TestCase):
         plot_toy_results('Perceptron', thetas_perceptron)
         plot_toy_results('Average Perceptron', thetas_avg_perceptron)
         plot_toy_results('Pegasos', thetas_pegasos)
+        return
 
     def test_algorithm_compare(self):
         # -------------------------------------------------------------------------------
@@ -69,6 +70,7 @@ class TestAlgoComparison(unittest.TestCase):
             p1.classifier_accuracy(p1.pegasos, train_bow_features, val_bow_features, train_labels, val_labels, T=T, L=L)
         print("{:50} {:.4f}".format("Training accuracy for Pegasos:", avg_peg_train_accuracy))
         print("{:50} {:.4f}".format("Validation accuracy for Pegasos:", avg_peg_val_accuracy))
+        return
 
     def test_parameter_tuning(self):
         # -------------------------------------------------------------------------------
@@ -104,8 +106,9 @@ class TestAlgoComparison(unittest.TestCase):
         utils.plot_tune_results('Avg Perceptron', 'T', Ts, *avg_pct_tune_results)
         utils.plot_tune_results('Pegasos', 'T', Ts, *peg_tune_results_T)
         utils.plot_tune_results('Pegasos', 'L', Ls, *peg_tune_results_L)
+        return
 
-    def test_classification_test(self):
+    def test_classification_test_dataset(self):
         # -------------------------------------------------------------------------------
         # Use the best method (perceptron, average perceptron or Pegasos) along with
         # the optimal hyperparameters according to validation accuracies to test
@@ -118,15 +121,14 @@ class TestAlgoComparison(unittest.TestCase):
         pred_labels = p1.classify(test_bow_features, theta, theta_0)
         accuracy = p1.accuracy(pred_labels, test_labels)
         print(f'Accuracy on test data : {accuracy}')
-        return
+        # -------------------------------------------------------------------------------
+        # Assign to best_theta, the weights (and not the bias!) learned by your most
+        # accurate algorithm with the optimal choice of hyperparameters.
+        # -------------------------------------------------------------------------------
 
-        # # -------------------------------------------------------------------------------
-        # # Assign to best_theta, the weights (and not the bias!) learned by your most
-        # # accurate algorithm with the optimal choice of hyperparameters.
-        # # -------------------------------------------------------------------------------
-        #
-        # best_theta = None  # Your code here
-        # wordlist = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
-        # sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
-        # print("Most Explanatory Word Features")
-        # print(sorted_word_features[:10])
+        best_theta = theta
+        wordlist = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
+        sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
+        print("Most Explanatory Word Features")
+        print(sorted_word_features[:10])
+        return
