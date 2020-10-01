@@ -340,10 +340,6 @@ def extract_words(input_string):
     return input_string.lower().split()
 
 
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
 def bag_of_words(texts):
     """
     Inputs a list of string reviews
@@ -363,11 +359,7 @@ def bag_of_words(texts):
     return dictionary
 
 
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
-def extract_bow_feature_vectors(reviews, dictionary):
+def extract_bow_feature_vectors(reviews, dictionary, count=False):
     """
     Inputs a list of string reviews
     Inputs the dictionary of words as given by bag_of_words
@@ -377,8 +369,6 @@ def extract_bow_feature_vectors(reviews, dictionary):
 
     Feel free to change this code as guided by Problem 9
     """
-    # Your code here
-
     num_reviews = len(reviews)
     feature_matrix = np.zeros([num_reviews, len(dictionary)])
 
@@ -386,14 +376,10 @@ def extract_bow_feature_vectors(reviews, dictionary):
         word_list = extract_words(text)
         for word in word_list:
             if word in dictionary:
-                feature_matrix[i, dictionary[word]] = 1
+                feature_matrix[i, dictionary[word]] = feature_matrix[i, dictionary[word]] + 1 if count else 1
     return feature_matrix
 
 
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
 def accuracy(preds, targets):
     """
     Given length-N vectors containing predicted and target labels,
