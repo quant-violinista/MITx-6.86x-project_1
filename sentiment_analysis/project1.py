@@ -4,6 +4,7 @@ import random
 
 ABS_TOL = 1e-16
 
+
 def get_order(n_samples):
     try:
         with open(str(n_samples) + '.txt') as fp:
@@ -87,7 +88,7 @@ def perceptron_single_step_update(
     return current_theta, current_theta_0
 
 
-def perceptron(feature_matrix, labels, T):
+def perceptron(feature_matrix, labels, T, debug=False):
     """
     Runs the full perceptron algorithm on a given set of data. Runs T
     iterations through the data set, there is no need to worry about
@@ -122,11 +123,12 @@ def perceptron(feature_matrix, labels, T):
             theta = theta_new
             theta_0 = theta_0_new
 
-    print(f'Perceptron error : {error}')
+    if debug:
+        print(f'Perceptron error : {error}')
     return theta, theta_0
 
 
-def average_perceptron(feature_matrix, labels, T):
+def average_perceptron(feature_matrix, labels, T, debug=False):
     """
     Runs the average perceptron algorithm on a given set of data. Runs T
     iterations through the data set, there is no need to worry about
@@ -177,7 +179,8 @@ def average_perceptron(feature_matrix, labels, T):
         theta_avg /= updates
         theta_0_avg /= updates
 
-    print(f'Average perceptron error : {error}')
+    if debug:
+        print(f'Average perceptron error : {error}')
     return theta_avg, theta_0_avg
 
 
@@ -217,7 +220,7 @@ def pegasos_single_step_update(
     return current_theta, current_theta_0
 
 
-def pegasos(feature_matrix, labels, T, L):
+def pegasos(feature_matrix, labels, T, L, debug=False):
     """
     Runs the Pegasos algorithm on a given set of data. Runs T
     iterations through the data set, there is no need to worry about
@@ -259,8 +262,8 @@ def pegasos(feature_matrix, labels, T, L):
             error = max(abs(np.linalg.norm(theta - theta_new)), abs(theta_0_new - theta_0))
             theta = theta_new
             theta_0 = theta_0_new
-
-    print(f'Pegasos error : {error}')
+    if debug:
+        print(f'Pegasos error : {error}')
     return theta, theta_0
 
 
@@ -281,14 +284,11 @@ def classify(feature_matrix, theta, theta_0):
     given theta and theta_0. If a prediction is GREATER THAN zero, it should
     be considered a positive classification.
     """
-    # Your code here
-    raise NotImplementedError
+    labels = np.sign(feature_matrix.dot(theta) + theta_0)
+    labels[abs(labels) < ABS_TOL] = -1
+    return labels
 
 
-# pragma: coderesponse end
-
-
-# pragma: coderesponse template
 def classifier_accuracy(
         classifier,
         train_feature_matrix,
