@@ -25,7 +25,7 @@ class EM:
             probabilities.append(theta['weight'] * norm.pdf(self.x, theta['mean'], np.sqrt(theta['var'])))
 
         probabilities = np.array(probabilities)
-        probabilities = np.transpose(probabilities.T / np.sum(probabilities, axis=1))
+        probabilities = probabilities / np.sum(probabilities, axis=0)
         self.posteriors = probabilities
         return
 
